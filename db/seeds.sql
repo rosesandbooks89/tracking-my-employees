@@ -20,10 +20,10 @@ INSERT INTO role (title, salary, department_id) VALUES
 -- employees table
 INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES
 ('Ashley', 'Rodriguez', 3, NULL),
-('Kevin', 'Tupik', 4, 19),
+('Kevin', 'Tupik', 4, 1),
 ('Malia', 'Brown', 5, NULL),
-('Sarah', 'Lourd', 6, 20),
-('Tom', 'Allen', 7, 20),
-('Samantha', 'Jones', 8, 19);
+('Sarah', 'Lourd', 6, 2),
+('Tom', 'Allen', 7, 1),
+('Samantha', 'Jones', 8, 1);
 
 
