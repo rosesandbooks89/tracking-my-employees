@@ -41,6 +41,9 @@ To install necessary dependencies, run the following command:
 npm i inquirer@8.2.4
 npm i mysql2
 ```
+Make sure to run mysql -u root -p to gain access to MYSQL before continuing
+npm start
+Run through prompts as required
 
 ## Usage
 This application is used for tracking employees, roles, and departments.
@@ -50,11 +53,16 @@ node index.js
 ```
 
 ## License
-This project has no license at  this time.
+This project has no license at this time.
 
 ## Struggles and Sources
+I had a few issues with this assignment. I was able to piece together the code using my tutor and asking askBCS and my classmates but mostly I refered back to the weeks assignments and the class activities. I also used the following sites for help:
 * [Inquirer](https://www.npmjs.com/package/inquirer)
 * [MySQL](https://www.npmjs.com/package/mysql)
+
+The first problem I ran into was getting my index file to run in the console. When running node index.js got errors. Working with my tutor I found minor typos and errors within my seeds schema and seeds file. 
+```
+
 
 
 ## Questions

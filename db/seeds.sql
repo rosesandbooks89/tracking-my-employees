@@ -1,14 +1,14 @@
 USE employee_db;
 
 -- departments table
-INSERT INTO departments (name) VALUES
+INSERT INTO department (name) VALUES
 ('Sales'),
 ('Engineering'),
 ('Finance'),
 ('Legal');
 
 -- roles table
-INSERT INTO roles (title, salary, department_id) VALUES
+INSERT INTO role (title, salary, department_id) VALUES
 ('Sales Lead', 100000, 1),
 ('Salesperson', 80000, 1),
 ('Lead Engineer', 150000, 2),
@@ -18,13 +18,12 @@ INSERT INTO roles (title, salary, department_id) VALUES
 ('Lawyer', 190000, 4);
 
 -- employees table
-INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES
-('John', 'Doe', 1, NULL),
-('Mike', 'Chan', 2, 1),
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES
 ('Ashley', 'Rodriguez', 3, NULL),
-('Kevin', 'Tupik', 4, 3),
+('Kevin', 'Tupik', 4, 19),
 ('Malia', 'Brown', 5, NULL),
-('Sarah', 'Lourd', 6, 5),
-('Tom', 'Allen', 7, 5),
-('Samantha', 'Jones', 8, 5);
+('Sarah', 'Lourd', 6, 20),
+('Tom', 'Allen', 7, 20),
+('Samantha', 'Jones', 8, 19);
+
 

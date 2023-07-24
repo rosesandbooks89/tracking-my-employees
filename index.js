@@ -10,58 +10,55 @@ const db = mysql.createConnection(
     },
     console.log('Connected to the employee_db database.')
 );
-//function to the start menu
+//function to the start menu and the move to next menu
 function init() {
-    inquirer.prompt([
+    return inquirer.prompt([
         {
             type: 'list',
-            name: 'mainMenu',
-            message: 'Select a menu option',
+            name: 'startMenu',
+            message: 'What would you like to do?',
             choices: [
-                'View All Departments',
-                'View All Roles',
-                'View All Employees',
-                'Add a Department',
-                'Add a Role',
-                'Add an Employee',
-                'Update an Employee Role',
+                'View all departments',
+                'View all roles',
+                'View all employees',
+                'Add a department',
+                'Add a role',
+                'Add an employee',
+                'Update an employee role',
                 'Exit'
             ]
-            .then((answer) => {
-                if (answer.mainMenu === 'View All Departments') {
-                    viewDepartments();
-                }
-                if (answer.mainMenu === 'View All Roles') {
-                    viewRoles();
-                }
-                if (answer.mainMenu === 'View All Employees') {
-                    viewEmployees();
-                }
-                if (answer.mainMenu === 'Add a Department') {
-                    addDepartment();
-                }
-                if (answer.mainMenu === 'Add a Role') {
-                    addRole();
-                }
-                if (answer.mainMenu === 'Add an Employee') {
-                    addEmployee();
-                }
-                if (answer.mainMenu === 'Update an Employee Role') {
-                    updateEmployee();
-                }
-                if (answer.mainMenu === 'Exit') {
-                    console.log('You have exited. To restart, type "node index.js"')
-                    db.end();
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
         }
-    ])
+    ]).then(answer => {
+            console.log (answer)
+          const { startMenu } = answer;
+          console.log (startMenu)
+            if (startMenu === 'View all departments') {
+                viewDepartments();
+            }
+            if  (startMenu === 'View all roles') {
+                viewRoles();
+            }
+            if (startMenu === 'View all employees') {
+                viewEmployees();
+            }
+            if (startMenu === 'Add a department') {
+                addDepartment();
+            }
+            if (startMenu === 'Add a role') {
+                addRole();
+            }
+            if (startMenu === 'Add an employee') {
+                addEmployee();
+            }
+            if (startMenu === 'Update an employee role') {
+                updateEmployee();
+            }
+            if (startMenu === 'Exit') {
+                db.end();
+            }
+        })
 }
 init();
-
 //funtion to view all departments
 const viewDepartments = () => {
     db.query('SELECT * FROM department', function (err, employee) {
@@ -233,62 +230,55 @@ const addEmployee = () => {
         })
 }
 //function to update an employee role
-const updateEmployeeRole = () => {
+const updateEmployee = () => {
     db.query('SELECT * FROM employee', (err, employee) => {
         if (err) {
             console.log(err);
         }
-        var employeesInfo = employee.map((employee) => {
+        var employees = employee.map((employeeID) => {
             return {
-                name: employee.first_name + ' ' + employee.last_name,
-                value: employee.id
+                name: employeeID.first_name + ' ' + employeeID.last_name,
+                value: employeeID.id
             }
         })
-        inquirer.prompt([
-            {
-                type: 'list',
-                name: 'employeeName',
-                message: 'Which employee would you like to update?',
-                choices: employeesInfo
+        db.query('SELECT * FROM role', (err, employee) => {
+            if (err) {
+                console.log(err);
             }
-        ])
-            .then((res) => {
-                db.query('SELECT * FROM role', (err, empRoles) => {
-                    const employeeID = res.employeeName;
-                    console.log(employeeID);
-                    if (err) {
-                        console.log(err);
-                    }
-                    var roles = empRoles.map((role) => {
-                        return {
-                            name: role.title,
-                            value: role.id
-                        }
-                    }
-                    )
-                    inquirer.prompt([
-                        {
-                            type: 'list',
-                            name: 'newRole',
-                            message: 'What is the new role of the employee?',
-                            choices: roles
-                        }
-                    ])
-                        .then((res) => {
-                            db.query(`UPDATE employee SET role_id = ${res.newRole} WHERE id = ${employeeID}`, (err, employee) => {
-                                if (err) {
-                                    console.log(err);
-                                }
-                                else {
-                                    console.log('Employee role updated!');
-                                    init();
-                                }
-                            })
-                        }
-                        )
-                })
+            var roles = employee.map((roleID) => {
+                return {
+                    name: roleID.title,
+                    value: roleID.id
+                }
             })
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'employeeID',
+                    message: 'Which employee would you like to update?',
+                    choices: employees
+                },
+                {
+                    type: 'list',
+                    name: 'roleID',
+                    message: 'What is the employee\'s new role?',
+                    choices: roles
+                }
+            ])
+                .then((res) => {
+                    db.query(`UPDATE employee SET role_id = ${res.roleID} WHERE id = ${res.employeeID}`, (err, employee) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log('Employee role updated!');
+                            init();
+                        }
+                    })
+                })
+        })
     })
 }
+
 
 
