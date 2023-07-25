@@ -118,23 +118,24 @@ const addDepartment = () => {
 };
 
 //function to add a role
+//function to add a role
 const addRole = () => {
-  db.query("SELECT * FROM department", function (err, employee) {
+  db.query("SELECT * FROM department", (err, employee) => {
     if (err) {
       console.log(err);
     }
-    var depts = depts.map((dept) => {
+    var departments = employee.map((department) => {
       return {
-        name: dept.name,
-        value: dept.id,
+        name: department.name,
+        value: department.id,
       };
     });
     inquirer
       .prompt([
         {
           type: "input",
-          name: "title",
-          message: "What is the title of the new role?",
+          name: "newRole",
+          message: "What is the name of the new role?",
         },
         {
           type: "input",
@@ -143,25 +144,24 @@ const addRole = () => {
         },
         {
           type: "list",
-          name: "department",
-          message: "What department does the new role belong to?",
-          choices: depts,
+          name: "departmentID",
+          message: "What is the department of the new role?",
+          choices: departments,
         },
       ])
-      .then((answer) => {
+      .then((res) => {
         db.query(
           `INSERT INTO role SET ?`,
           {
-            title: answer.title,
-            salary: answer.salary,
-            department_id: answer.department,
+            title: res.newRole,
+            salary: res.salary,
+            department_id: res.departmentID,
           },
           (err, employee) => {
             if (err) {
               console.log(err);
             } else {
               console.log("New role added!");
-              //callback to go back to the main menu
               init();
             }
           }
@@ -203,7 +203,7 @@ const addEmployee = () => {
       .then((res) => {
         db.query(
           "SELECT first_name, last_name, id FROM employee",
-          (err, employee) => {
+          (err, managers) => {
             if (err) {
               console.log(err);
             }

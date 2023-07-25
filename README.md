@@ -38,7 +38,7 @@ SO THAT I can organize and plan my business
 ## Installation
 To install necessary dependencies, run the following command:
 ```
-npm i inquirer@8.2.4
+npm i
 npm i mysql2
 ```
 Make sure to run mysql -u root -p to gain access to MYSQL before continuing
@@ -56,14 +56,12 @@ node index.js
 This project has no license at this time.
 
 ## Struggles and Sources
-I had a few issues with this assignment. I was able to piece together the code using my tutor and asking askBCS and my classmates but mostly I refered back to the weeks assignments and the class activities. I also used the following sites for help:
+I had a few issues with this assignment. I was able to piece together the code using my tutor and asking askBCS and my classmates but mostly I referred back to the weeks assignments and the class activities. I also used the following sites for help:
 * [Inquirer](https://www.npmjs.com/package/inquirer)
 * [MySQL](https://www.npmjs.com/package/mysql)
 
 The first problem I ran into was getting my index file to run in the console. When running node index.js got errors. Working with my tutor I found minor typos and errors within my seeds schema and seeds file. 
-```
-
-
+The next problem I ran into was that i was getting errors when sourcing my seed file, I was able to fix this by seeing that I had assigned the wrong department id to my employees because I only had 4 departments but I had assigned numbers 5 and above.
 
 ## Questions
 If you have any questions, please contact me at the email below. Check out my Github portfolio for more of my projects!
